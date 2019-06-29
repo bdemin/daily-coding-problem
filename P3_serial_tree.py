@@ -8,28 +8,42 @@ class Node:
         self.left = left
         self.right = right
 
-    def serialize(self, root, output = []):
-        if root == None:
-            output.append(None)
-            return None
 
-        output.append(root.val)
-        self.serialize(root.left)
-        self.serialize(root.right)
-        return output
-
-
-def deserialize(_input):
-    if _input == None:
+def serialize(root, output = []):
+    if root == None:
+        output.append(None)
         return None
-    node = Node(_input[0])
-    _input.pop(0)
-    node.left = deserialize(_input)
-    node.right = deserialize(_input)
+
+    output.append(root.val)
+    serialize(root.left)
+    serialize(root.right)
+
+    output = ' '.join(str(x) for x in output)
+
+    return output
+
+
+def deserialize(input_str):
+    input_list = input_str.split(' ')
+    return str2tree(input_list)
+
+
+def str2tree(_input):
+    if len(_input) != 0:
+        val = _input.pop(0)
+        if val != 'None':
+            node = Node(val)
+            node.left = str2tree(_input)
+            node.right = str2tree(_input)
+        else:
+            node = Node(None)
+    return node
 
 
 # Test driver:
 node = Node('root', Node('left', Node('left.left')), Node('right'))
-test = node.serialize(node)
-deserialize(test)
-# assert deserialize(serialize(node)).left.left.val == 'left.left'
+test_string = serialize(node)
+print(test_string)
+test_tree = deserialize(test_string)
+print(test_tree)
+assert deserialize(serialize(node)).left.left.val == 'left.left'
