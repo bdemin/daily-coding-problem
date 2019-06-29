@@ -11,9 +11,14 @@ def cons(a, b):
 
 # Implement car and cdr
 
-def car():
-    pass
+a = cons(3,4)
+def car(pair):
+    return pair(lambda a,b : a)
 
 
-def cdr():
-    pass
+def cdr(pair):
+    return pair(lambda a,b : b)
+
+
+print(car(cons(3, 4)))
+print(cdr(cons(3, 4)))
