@@ -9,27 +9,46 @@
 # dereference_pointer functions that converts between nodes and memory addresses
 
 
+# Note: not sure how to test the code since Python doesn't use
+# pointers the same way as other languages.
+
 class Node():
-    def __init__(self, value = None, both = None):
+    def __init__(self, value = None, xor = None):
         self.value = value
-        self.both = both
+        self.xor = xor
+
+
+def get_pointer(node):
+    pass
+
+
+def dereference_pointer(node):
+    pass
 
 
 class XORlist():
     def __init__(self):
-        head = Node()
-        tail = Node()
+        self.head = Node()
+        self.tail = Node()
 
 
     def add(self, element):
-        pass
+        new = Node()
+        if self.head.value == None:
+            self.head = self.tail = new.val
+        else:
+            new.xor = self.tail.xor ^ get_pointer(new)
+            self.tail = new
 
 
     def get(self, index):
-        pass
-
-
-# def xor(a,b):
-#     if bool(a) != bool(b):
-#         return True
-    # return False
+        temp_head = self.head
+        temp_prev = 0
+        if index >= 0:
+            for i in range(index):
+                temp_pnt = get_pointer(temp_head)
+                temp_head = dereference_pointer(temp_head.both ^ temp_prev)
+                temp_head = temp_pnt
+                if temp_head == self.tail:
+                    return None
+            return temp_head
