@@ -5,6 +5,14 @@
 import time
 
 
+def just_func():
+    print('Someone called me!')
+
+
 def job_scheduler(f, n):
-    pass
-    # time.sleep(secs)
+    time.sleep(n/1000)
+    f()
+
+
+# Driver code:
+job_scheduler(just_func, 1000)
