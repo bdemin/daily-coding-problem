@@ -6,10 +6,20 @@
 # Follow-up: Can you do this in O(N) time and constant space?
 
 
+# Similar to The House Robber Problem
 def max_nonadj_sum(arr):
-    pass
+    temp = arr[0]
+    next_sum = 0
+    curr_sum = arr[0]
+    for i in range(1, len(arr)):
+        temp = curr_sum
+        curr_sum = max(curr_sum, arr[i] + next_sum)
+        next_sum = temp
+    return max(curr_sum, next_sum)
 
 
+# the max sum I can get till now including myself
+# exclusive[i] = max(inclusive[i-1], exclusive[i-1]) ------------ max sum I can get excluding myself
 
 # Driver code:
 arr = [2, 4, 6, 2, 5]
