@@ -16,4 +16,31 @@
 
 
 def staircase(N):
-    pass
+    if N <= 2:
+        return N
+    else:
+        return staircase(N-2) + staircase(N-1)
+    
+
+# Driver code:
+for num_stairs in range(5):
+    print(f'For {num_stairs} stairs, there are {staircase(num_stairs)} ways')
+
+
+# Solve for a set of possible steps:
+def staircase_x(N, X):
+    if N < 0:
+        return 0
+    elif N == 0:
+        return 1
+    else:
+        result = 0
+        for x in X:
+            result += staircase_x(N-x, X)
+        return result
+
+
+# Driver code:
+num_stairs = 5
+X = [1, 3, 5]
+print(staircase_x(num_stairs, X))
