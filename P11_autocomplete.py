@@ -5,3 +5,20 @@
 # [dog, deer, deal], return [deer, deal].
 # Hint: Try preprocessing the dictionary into a more efficient
 # data structure to speed up queries.
+
+
+
+def autocomplete(s, _set):
+    output = []
+    length = len(s)
+    for item in _set:
+        if item[0:length] == s:
+            output.append(item)
+    return output
+
+
+# Driver code:
+s = 'de'
+_set = ['dog', 'deer', 'deal']
+result = autocomplete(s, _set)
+print(result)
