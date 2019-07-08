@@ -7,7 +7,7 @@
 # data structure to speed up queries.
 
 
-
+# Note: Can be improved by constructing a Trie tree structure from the strings
 def autocomplete(s, _set):
     output = []
     length = len(s)
