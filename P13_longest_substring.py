@@ -39,3 +39,32 @@ s = 'aaabcdsf'
 k = 4
 result = longest_substring(k, s)
 print(result)
+
+
+# Faster solution
+def better_longest_substring(k, s):
+    startIndex = 0
+    endIndex = 0
+    maxLength = k
+    while endIndex < len(s):
+        endIndex += 1
+        while True:
+            charSet = len(set(s[startIndex:endIndex]))
+            if charSet <= k:
+                break
+            startIndex += 1
+            if endIndex - startIndex > maxLength:
+                maxLength = endIndex - startIndex
+                retIndex = startIndex - 1
+    return s[retIndex:retIndex + maxLength]
+
+# Driver code
+s = 'abcba'
+k = 2
+result = better_longest_substring(k, s)
+print(result)
+
+s = 'aaabcdsf'
+k = 4
+result = better_longest_substring(k, s)
+print(result)
