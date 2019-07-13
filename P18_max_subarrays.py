@@ -13,6 +13,8 @@
 # the input array in-place and you do not need to store
 # the results. You can simply print them out as you compute them.
 
+from collections import deque
+
 
 # Brute force
 def max_subarrays(arr, k):
@@ -33,7 +35,25 @@ max_subarrays(arr, k)
 
 # Better solution
 def max_subarrays_2(arr, k):
-    pass
+    dq = deque()
+
+    for i in range(k):
+        while dq and arr[i] >= arr[dq[-1]] :
+            dq.pop()
+        dq.append(i)
+
+    for i in range(k, len(arr)):
+        print(arr[dq[0]])
+
+        while dq and dq[0] <= i-k:
+            dq.popleft()
+
+        while dq and arr[i] >= arr[dq[-1]]:
+            dq.pop()
+
+        dq.append(i)
+        
+    print(arr[dq[0]])
 
 
 # Driver code
