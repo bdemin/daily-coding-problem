@@ -7,14 +7,22 @@
 
 
 def minimum_cost(housePrices):
-    minCost = [None] * len()
+    minCost = [0] * len(housePrices[0])
     for house in housePrices:
-        # totalPrice = totalPrice + 
+        temp = [0] * len(house)
+
         for index in range(len(house)):
-            pass
+            temp[index] = house[index] + min(minCost[:index] + minCost[index+1:])
+
+        minCost = temp
+    return min(minCost)
 
 
 # Driver code
 housePrices = [[1,2,3], [4,2,1], [1,1,5]]
+result = minimum_cost(housePrices)
+print(result)
+
+housePrices = [[1,2,15,3,20], [20,1,4,2,1], [8,6,1,1,5]]
 result = minimum_cost(housePrices)
 print(result)
