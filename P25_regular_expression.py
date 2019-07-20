@@ -15,7 +15,43 @@
 
 
 def check_regex(re, string):
-    pass
+    iString = 0
+    iRe = 0
+    while iRe < len(re):
+        if re[iRe] == string[iString]:
+            iString += 1
+            iRe += 1
+            continue
+        elif iRe < len(re)-1 and re[iRe+1] == '*':
+            letter = re[iRe]
+            repeats = 0
+            while letter == string[iRe+repeats]:
+                repeats += 1
+                iString += 1
+            iRe += 2
+            iString += repeats
+            continue
+        if re[iRe] == '.':
+            if iRe < len(string)-1:
+                return False
+            else:
+                iString += 1
+                iRe += 1
+                continue
+        if re[iRe] == '*':
+            if re[iRe-1] == '.':
+
+                return True
+            letter = re[iRe-1]
+            repeats = 0
+            while letter == string[iRe+repeats]:
+                repeats += 1
+            iRe += 2
+            iString += repeats
+            continue
+        return False
+    return True
+
 
 
 # Driver code
@@ -26,7 +62,7 @@ assert check_regex(re, string) == True
 string = "raymond"
 assert check_regex(re, string) == False
 
-ra = ".*at" 
+re = ".*at" 
 string = "chat"
 assert check_regex(re, string) == True
 
