@@ -15,43 +15,17 @@
 
 
 def check_regex(re, string):
-    iString = 0
-    iRe = 0
-    while iRe < len(re):
-        if re[iRe] == string[iString]:
-            iString += 1
-            iRe += 1
-            continue
-        elif iRe < len(re)-1 and re[iRe+1] == '*':
-            letter = re[iRe]
-            repeats = 0
-            while letter == string[iRe+repeats]:
-                repeats += 1
-                iString += 1
-            iRe += 2
-            iString += repeats
-            continue
-        if re[iRe] == '.':
-            if iRe < len(string)-1:
-                return False
-            else:
-                iString += 1
-                iRe += 1
-                continue
-        if re[iRe] == '*':
-            if re[iRe-1] == '.':
-
-                return True
-            letter = re[iRe-1]
-            repeats = 0
-            while letter == string[iRe+repeats]:
-                repeats += 1
-            iRe += 2
-            iString += repeats
-            continue
-        return False
-    return True
-
+    boolMat = [[False]*(len(re)+1) for i in range(len(string)+1)]
+    boolMat[0][0] = True
+    
+    for i in range(0, len(string) + 1):
+        for j in range(1, len(re) + 1):
+            if re[j-1] == '*':
+                boolMat[i][j] = boolMat[i][j-2] or (i > 0 and j > 1 and (re[j-2] == '.' or 
+                            string[i-1] == re[j-2]) and boolMat[i-1][j])
+            elif i > 0 and (re[j-1] == '.' or re[j-1] == string[i-1]):
+                boolMat[i][j] = boolMat[i-1][j-1]
+    return boolMat[-1][-1]
 
 
 # Driver code
@@ -68,3 +42,15 @@ assert check_regex(re, string) == True
 
 string = "chats"
 assert check_regex(re, string) == False
+
+re = "c*a*b" 
+string = "aab"
+assert check_regex(re, string) == True
+
+re = "mis*is*p*"
+string = "mississippi"
+assert check_regex(re, string) == False
+
+re = ".*" 
+string = "ab"
+assert check_regex(re, string) == True
