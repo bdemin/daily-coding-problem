@@ -7,15 +7,24 @@
 
 
 def find_edit_distance(string1, string2):
-    longest = max(len(string1), len(string2))
-    distance = abs(len(string1) - len(string2))
-    for i in range(longest):
-        try:
-            if string1[i] != string2[i]:
-                distance += 1
-        except:
-            return distance
-    return distance
+    m = len(string1)
+    n = len(string2)
+    matrix = [[None] * (n+1) for i in range(m+1)]
+
+    for i in range(m+1):
+        matrix[i][0] = i
+    
+    for i in range(n+1):
+        matrix[0][i] = i
+
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if string1[i-1] == string2[j-1]:
+                matrix[i][j] = matrix[i-1][j-1]
+            else:
+                matrix[i][j] = min(matrix[i-1][j-1], matrix[i-1][j], matrix[i][j-1]) + 1
+
+    return matrix[-1][-1]
 
 
 # Driver code
@@ -31,5 +40,10 @@ print(result)
 
 string1 = ''
 string2 = ''
+result = find_edit_distance(string1, string2)
+print(result)
+
+string1 = 'kitten'
+string2 = 'akitten'
 result = find_edit_distance(string1, string2)
 print(result)
