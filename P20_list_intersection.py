@@ -8,26 +8,43 @@
 
 # Do this in O(M + N) time (where M and N are the lengths of the lists) and constant space.
 
-class Linked():
+class Node():
     def __init__(self, val = None, _next = None):
         self.val = val
         self.next = _next
 
+    def __str__(self):
+        return str(self.val)
+
+
+def get_length(node):
+    length = 0
+    while node:
+        length += 1
+        node = node.next
+    return length
 
 def find_intersection(L1, L2):
-    if not L1.next and L2.next:
-        return 'Error! No intersection.'
-    # elif L1.val != L2.val:
-        
-    elif L1.val == L2.val:
-        return L1.val
+    length1 = get_length(L1)
+    length2 = get_length(L2)
+    min_length = min(length1, length2)
 
-    return find_intersection(L1.next, L2)
-    return find_intersection(L1, L2.next)
+    for i in range(length1 - min_length):
+        L1 = L1.next
+    for i in range(length2 - min_length):
+        L2 = L2.next
+
+    for i in range(min_length):
+        if L1.val == L2.val:
+            return L1
+        L1 = L1.next
+        L2 = L2.next
+
+    return None
 
 
 # Driver code
-A = Linked(3, Linked(7, Linked(8, Linked(10))))
-B = Linked(99, Linked(1, Linked(8, Linked(10))))
+A = Node(3, Node(7, Node(8, Node(10))))
+B = Node(99, Node(1, Node(8, Node(10))))
 result = find_intersection(A, B)
 print(result)
