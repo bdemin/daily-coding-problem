@@ -14,18 +14,18 @@
 # 2
 
 
+from bisect import insort
+
+
 def return_median(sequence):
     center = sequence[0]
     print(center)
 
     num_list = []
-    num_list.append(center)
+    insort(num_list, center)
     
     for i in range(1, len(sequence)):
-        if sequence[i] > center:
-            num_list.append(sequence[i]) # Add larger item to the right side
-        else:
-            num_list.insert(0, sequence[i]) # Add smaller item to the left side
+        insort(num_list, sequence[i]) # Add sorted element (that's cheating!)
 
         half_len = int(len(num_list)/2)
         center = num_list[half_len]
