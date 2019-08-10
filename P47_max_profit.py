@@ -21,6 +21,17 @@ def calc_max_profit(stock_prices):
     return max_profit
 
 
+def better_calc_max_profit(stock_prices):
+    max_profit = 0
+    max_price = 0
+    for i in range(len(stock_prices)-1, 0, -1):
+        max_price = max(stock_prices[i], max_price)
+        max_profit = max(max_profit, max_price - stock_prices[i - 1])
+
+    return max_profit
+
 # Driver code
 stock_prices = [9, 11, 8, 5, 7, 10]
 assert calc_max_profit(stock_prices) == 5
+
+assert better_calc_max_profit(stock_prices) == 5
