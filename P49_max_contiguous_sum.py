@@ -29,3 +29,11 @@ print(result)
 arr = [-5, -1, -8, -9]
 result = find_max_contiguous_sum(arr)
 print(result)
+
+arr = [60, -80, 60]
+result = find_max_contiguous_sum(arr)
+print(result)
+
+arr = [60, -20, 60]
+result = find_max_contiguous_sum(arr)
+print(result)
