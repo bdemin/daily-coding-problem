@@ -20,6 +20,7 @@ class Node:
 
 
 def evaluate(num1, num2, sign):
+    # Perform operation on num1 and num2
     if sign == '+':
         return num1 + num2
     if sign == '-':
@@ -29,9 +30,19 @@ def evaluate(num1, num2, sign):
     if sign == '/':
         return num1 / num2
 
-        
-def eval_tree(root):
-    pass
+
+def eval_tree(node):
+    # Check if node is a number
+    if not type(node.left.val) == str:
+        return evaluate(node.left.val, node.right.val, node.val)
+    
+    # Node is an operation
+    num1 = eval_tree(node.left)
+    num2 = eval_tree(node.right)
+    return evaluate(num1, num2, node.val)
+    
 
 # Driver code
-root = Node('*', Node('+', 3, 2), Node('+', 4, 5))
+root = Node('*', Node('+', Node(3), Node(2)), Node('+', Node(4), Node(5)))
+result = eval_tree(root)
+print(result)
