@@ -9,3 +9,13 @@
 # get(key): gets the value at key. If no such key exists, return null.
 # Each operation should run in O(1) time.
 
+class LRU(object):
+    def __init__(self, n):
+        pass
+
+    def set(key, value):
+        pass
+
+    def get(key):
+        pass
+    
